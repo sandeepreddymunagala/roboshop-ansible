@@ -12,7 +12,7 @@
   ansible.builtin.shell: mongo --host mongodb-dev.sandeepreddymunagala123.xyz </app/schema/{{ component }}.js
 
 
-  #ansible.builtin.shell: mongo --host mongodb-dev.rdevopsb73.online </app/schema/{{ component }}.js
+
 
 
 
