@@ -6,7 +6,7 @@
     name: nginx
     state: installed
 
-- name: App Prerequisites
+- name: App pre-requisites
   ansible.builtin.import_task:
     file: app_presetup.yml
 
