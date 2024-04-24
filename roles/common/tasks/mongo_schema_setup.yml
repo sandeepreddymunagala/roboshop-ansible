@@ -1,0 +1,36 @@
+- name: Copy MongoDB Repo file
+  ansible.builtin.copy:
+    src: mongodb.repo
+    dest: /etc/yum.repos.d/mongo.repo
+
+- name: install mongodb client
+  ansible.builtin.yum:
+    name: mongodb_org_shell
+    state: installed
+
+- name: load Schema
+  ansible.builtin.shell: mongo --host mongodb-dev.sandeepreddymunagala123.xyz <$app/schema/{{ component }}.js
+
+
+
+
+
+
+
+
+
+
+
+  mongo_schema_setup() {
+    echo -e "${color} Copy MongoDB Repo file ${nocolor}"
+    cp /home/centos/roboshop-shell/mongodb.repo /etc/yum.repos.d/mongodb.repo  &>>$log_file
+    stat_check $?
+    
+    echo -e "${color} Install MongoDB Client ${nocolor}"
+    yum install mongodb-org-shell -y  &>>$log_file
+    stat_check $?
+    
+    echo -e "${color} Load Schema ${nocolor}"
+    mongo --host mongodb-dev.sandeepreddymunagala123.xyz <${app_path}/schema/$component.js  &>>$log_file
+    stat_check $?
+  }
