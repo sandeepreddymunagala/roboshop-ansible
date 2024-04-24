@@ -12,7 +12,9 @@
 
 - name: install nodejs dependencies
   ansible.builtin.shell: npm install
-  args: /app
+  args:
+    chdir: /app
+
 
 - name: systemd_setup
   ansible.builtin.import_task:
