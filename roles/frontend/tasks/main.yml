@@ -24,18 +24,19 @@
     src: nginx.conf
     dest: /etc/nginx/nginx.conf
 
-- name: Update Frontend Configuration
+- name: Copy roboshop configuration
   ansible.builtin.template:
     src: roboshop.conf
     dest: /etc/nginx/default.d/roboshop.conf
 
-- name: Start and enable nginx
+- name: Start Nginx Service
   ansible.builtin.systemd:
-    name: nginx
     state: restarted
-    enabled: yes
+    name: nginx
+    enabled: true
 
-- name: Load Filebeat Role
+- name: Load filebeat
   ansible.builtin.import_role:
     name: elk
     tasks_from: filebeat
+
