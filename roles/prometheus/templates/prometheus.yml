@@ -13,26 +13,24 @@ alerting:
 
 # Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
 rule_files:
-# - "first_rules.yml"
-# - "second_rules.yml"
+  - "alerts.yml"
+  # - "second_rules.yml"
 
 # A scrape configuration containing exactly one endpoint to scrape:
 # Here it's Prometheus itself.
 scrape_configs:
-  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
   - job_name: "prometheus"
     static_configs:
       - targets: ["localhost:9090"]
-
-  - job_name: ec2
+  - job_name: "ec2-nodes"
     ec2_sd_configs:
       - region: us-east-1
         port: 9100
         filters:
-          - name: "tag:Monitor"
+          - name: tag:Monitor
             values: [ "true" ]
     relabel_configs:
-      {% for item in tags %}
-      - source_labels: [__meta_ec2_tag_{{ item }}]
+      { % for item in tags % }
+      - source_labels: [ __meta_ec2_tag_{ { item } } ]
         target_label: "{{ item }}"
-      {% endfor %}
+      { % endfor % }
