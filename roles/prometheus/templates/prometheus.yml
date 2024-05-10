@@ -30,5 +30,17 @@ scrape_configs:
           - name: tag:Monitor
             values: [ "true" ]
     relabel_configs:
-      - source_labels: [ __meta_ec2_tag_Name ]
+      - source_labels: [ __meta_ec2_tag_company_name ]
+        target_label: company_name
+      - source_labels: [ __meta_ec2_tag_business ]
+        target_label: business
+      - source_labels: [ __meta_ec2_tag_business_unit ]
+        target_label: business_unit
+      - source_labels: [ __meta_ec2_tag_cost_center ]
+        target_label: cost_center
+      - source_labels: [ __meta_ec2_tag_project_name ]
+        target_label: project_name
+      - source_labels: [ __meta_ec2_tag_env ]
+        target_label: env
+      - source_labels: [ __meta_ec2_tag_component ]
         target_label: component
