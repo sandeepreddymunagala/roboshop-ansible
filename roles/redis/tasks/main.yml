@@ -1,11 +1,8 @@
-- name: Install Remi Repo
-  ansible.builtin.dnf:
-    name: https://rpms.remirepo.net/enterprise/remi-release-8.rpm
-    state: installed
-    disable_gpg_check: true
+- name: Reset Redis Module
+  ansible.builtin.shell: dnf module reset redis -y
 
-- name: Enable Redis 7 from Remi
-  ansible.builtin.shell: dnf module reset redis -y ; dnf module enable redis:remi-7.2 -y
+- name: Enable Native Redis 6
+  ansible.builtin.shell: dnf module enable redis:6 -y
 
 - name: Install Redis
   ansible.builtin.dnf:
@@ -14,15 +11,9 @@
 
 - name: Update Redis config file listen address
   ansible.builtin.replace:
-    path: /etc/redis/redis.conf
+    path: /etc/redis.conf
     regexp: '127.0.0.1'
     replace: '0.0.0.0'
-
-- name: Update Redis config file protected mode
-  ansible.builtin.replace:
-    path: /etc/redis/redis.conf
-    regexp: 'protected-mode yes'
-    replace: 'protected-mode no'
 
 - name: Start Redis Service
   ansible.builtin.systemd:
