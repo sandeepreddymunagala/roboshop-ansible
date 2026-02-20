@@ -1,5 +1,11 @@
-- name: Disable Default Redis and Enable 7 Version
-  ansible.builtin.shell: dnf module disable redis -y ; dnf module enable redis:7 -y
+- name: Install Remi Repo
+  ansible.builtin.dnf:
+    name: https://rpms.remirepo.net/enterprise/remi-release-8.rpm
+    state: installed
+    disable_gpg_check: true
+
+- name: Enable Redis 7 from Remi
+  ansible.builtin.shell: dnf module reset redis -y ; dnf module enable redis:remi-7.2 -y
 
 - name: Install Redis
   ansible.builtin.dnf:
