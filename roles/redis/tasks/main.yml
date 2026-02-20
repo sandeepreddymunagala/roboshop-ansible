@@ -1,3 +1,7 @@
+- name: Clean DNF Cache
+  ansible.builtin.shell: dnf clean all
+  
+
 - name: Install Redis Repos
   ansible.builtin.dnf:
     name: http://rpms.remirepo.net/enterprise/remi-release-8.rpm
